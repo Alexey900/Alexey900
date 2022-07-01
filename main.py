@@ -7,7 +7,7 @@ cars = [
     ["LADA", 3232.21],
     ["BMW", 3232.21]
 ]
-
+#
 con = None
 try:
     con = sq.connect("saper.db")
