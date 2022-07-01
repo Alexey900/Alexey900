@@ -36,7 +36,7 @@ try:
 except sq.Error as error:
     if cn:
         cn.rollback()       # if founded error than do rollback
-    print("Cathced error:  ", error)
+    print("Catched error:  ", error)
 
 finally:
     if cn:
