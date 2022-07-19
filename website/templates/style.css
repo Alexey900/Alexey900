@@ -1,0 +1,35 @@
+p {
+    font-size: 32px;
+    text-align: center;
+    font: "Arial";
+    color: rgb(148, 34, 169);
+}
+
+label {
+    font-size: 23px;
+}
+form {
+    align-content: center;
+}
+
+.modal{
+    padding: 60px;
+    text-align:center;
+    background: rgb(180, 177, 238);
+    position: fixed; top: 30%; left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+input {
+    font-size: 25px;
+    margin: 1px
+}
+
+.submit{
+    font-size: 26px;
+    text-align: center;
+    margin: 10px;
+    width: 350px;
+}

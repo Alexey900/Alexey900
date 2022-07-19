@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        p 
+        {   
+            color: rgb(21, 0, 255);
+            background-color: aqua;
+            text-align: center;
+            font-size: 24pt;
+        }
+        a:hover 
+        {
+            color: #154088; 
+            border-bottom: .07em solid;
+        }
+        a
+        {
+            font-size: 2em;  /*32 px*/
+        }
+        li {
+            font-size: 26px;
+            color:rgb(59, 198, 34);
+        }
+    </style>
+    <head>
+        <title>{{name}}</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>Главная страница сайта</h1>
+        <p>Бла бла бла бла</p>
+        <ul>
+        {% for elem in tags -%}
+            <li>{{elem}}</li>
+        {% endfor %}
+        </ul>
+        <ol>
+            {% for elem in tags -%}
+                <li> >>>>>>>> {{elem}} ------ </li>
+            {% endfor %}
+            </ol>
+        <a href="/about">About</a>
+    </body>
+</html>

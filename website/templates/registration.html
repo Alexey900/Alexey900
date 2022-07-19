@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{title}}</title>
+        <style>p {
+            font-size: 32px;
+            text-align: center;
+            font: "Arial";
+            color: rgb(148, 34, 169);
+        }
+        
+        label {
+            font-size: 23px;
+        }
+        form {
+            align-content: center;
+        }
+        
+        .modal{
+            padding: 60px;
+            text-align:center;
+            background: rgb(180, 177, 238);
+            position: fixed; top: 30%; left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+          }
+        
+        input {
+            font-size: 25px;
+            margin: 1px
+        }
+        
+        .submit{
+            font-size: 26px;
+            text-align: center;
+            margin: 10px;
+            width: 350px;
+        }
+    </style>
+    </head>
+    <p>Пройдите Регистрацию, прежде чем продолжить</p>
+    <div class="modal">
+        <form action="http://127.0.0.1:5000/login" method="post">
+            <label>Имя: </label><input type="text" name="username" value=""> <br>
+            <label>Пароль: </label><input type="password" name="passw" value=""> <br>
+            <input class="submit" type="submit" value="Вход">
+        </form>
+    </div>
+    </body>
+</html>

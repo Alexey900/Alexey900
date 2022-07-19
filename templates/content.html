@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>{{title}}</title>
+  <!-- <link rel="stylesheet" href=style.css"> -->
+  <style>
+    .msgsuccess {
+        border: 2px solid green;
+        background: rgb(107, 222, 107);
+    }
+    .msgerror {
+        border: 2px solid rgb(122, 43, 7);
+        background: rgb(246, 63, 63);
+    }
+    /*.msg { background: rgb(28, 231, 38);}*/
+  </style>
+ </head>
+ <body>
+
+ <form name="test" method="post" action="/contact">
+  {% for cat, m in get_flashed_messages(True) %}
+    <div class="msg{{cat}}">{{m}}</div>
+  {% endfor %}
+  <p><b>Ваше имя:</b><br>
+   <input type="text" size="40" name="username">
+  </p>
+  <p><b>Каким браузером в основном пользуетесь:</b><Br>
+   <input type="radio" name="browser" value="chrome"> Chrome<Br>
+   <input type="radio" name="browser" value="opera"> Opera<Br>
+   <input type="radio" name="browser" value="firefox"> Firefox<Br>
+  </p>
+
+  <p>Комментарий об ошибке</p>
+   <textarea name="comment" cols="40" rows="5"></textarea></p>
+  <input type="submit" value="Отправить">
+ </form>
+
+ </body>
+</html>

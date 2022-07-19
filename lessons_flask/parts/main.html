@@ -1,0 +1,8 @@
+{% extends 'index.html' %}  <!-- site skeleton will be taken from index.html file-->
+
+{% block title %}About page{% endblock %}   <!-- Add text to <block title>-->
+
+{% block body%}         
+<h1>{{self.title()}}</h1>                      <!-- block data -->
+<p>Классный сайт, если его доделать.</p> <!-- block data -->
+{% endblock %}

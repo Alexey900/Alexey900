@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{title}}</title>
+        <style>
+            div {
+                background-color: rgb(227, 225, 225);
+                font-size: 26px;
+                margin-left: 50px;
+            }
+            .main {
+                border: 4px double black; /* Параметры границы */
+                background: #fc3; /* Цвет фона */
+                padding: 10px; /* Поля вокруг текста */
+            }
+            .malina{
+                border-right: 3px solid rgb(42, 40, 40);
+            }
+            .mi{
+                font-size: 65px;
+                text-decoration: none;
+                color: black;
+                border-left: 3px solid rgb(42, 40, 40);
+                margin-left: 20px;
+                padding-left: 60px;
+                padding-right: 60px;
+                margin-bottom: 20px;
+            }
+            a{
+                margin-left: 20px;
+                margin-top: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <a class="mi" href="/">Главная</a>
+            <a class="mi" href="/add_post">Добавить статью</a>
+        </div>
+        {% for elem in menu%}
+        <a  style="font-size: 26px; font-family: 'Segoe UI'" href="{{elem['id']}}">{{elem["title"]}}</a>
+        <div stye="background-color: azure; border: 2px solid grey;">
+            <p>{{elem["content"][:50]}}</p>
+        </div>
+        {% endfor %}
+    </body>
+</html>
