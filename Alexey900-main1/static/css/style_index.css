@@ -95,12 +95,9 @@ body{
 
 
 
-
-
-
-
 .container{
-	height: 1000px;
+	min-height: 1000px;
+	height: 100%;
 	border: 5px solid #000;
 	padding: 10px;
     border-radius: 1%;
@@ -112,6 +109,8 @@ body{
 	border: 5px solid #000;
 	padding: 10px;
     box-shadow: 3px 2px 1px #000;
+	height: 100%;
+	min-height: 1000px;
 }
 .post {
 	display: block;
@@ -135,7 +134,6 @@ body{
 
 .link_prof{
     width: 190px;
-
 }
 
 .i{
