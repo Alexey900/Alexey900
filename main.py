@@ -72,22 +72,20 @@ def handle_bad_request(e):
 @app.route('/search_post', methods=["POST"])
 def search():
     menu = db.getMenu()
-    query = request.form['query']
+    query = ' ?' + fr"{request.form['query']}" + ' ?'
     results = []
-    search_d = [query.split()[:i] for i in range(len(query.split()), 1, -1)]
-    search_d += [[item] for item in query.split()]
+    print(len(menu))
     for elem in menu:
-        for row in search_d:
-            if len(row) < 2: pattern = f'{"".join(row)}'
-            else: pattern = f'{" ".join(row)}'
-            if re.search(pattern, elem['title']):
-                indices = re.finditer(pattern, elem['title'])
-                title=[elem['title'][:ind.start()]+'<p class="marker">'+\
-                               elem['title'][ind.start():ind.end()]+'</p>'+\
-                               elem['title'][ind.end():] for ind in indices]
+        print('+')
+        # print(elem['title'])
+        if re.search(query, elem['title'], re.I):
+            ind = re.search(query, elem['title'], re.I)
+            title = elem['title'][:ind.start()]+'<p class="marker">'+\
+                         elem['title'][ind.start():ind.end()]+'</p>'+\
+                         elem['title'][ind.end():]
 
-                results.append([title, elem])
-                break
+            results.append([title, elem])
+            print(title)
     return render_template('search_res.html', menu=results)
 
 @app.route("/add_post", methods=["GET", "POST"])

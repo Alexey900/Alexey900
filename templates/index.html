@@ -15,7 +15,7 @@
         <div class="wrapper">
             <header class="header_block">
                 <div class="wrp1">
-                    <form action="/search_post" method="POST">
+                    <form action="/search_post" method="post">
                         <input class="search" name="query" type="search" placeholder="Искать здесь...">
                         <button class="button_search" type="submit"></button>
                     </form>
@@ -41,7 +41,7 @@
                                 <p clas="userName">Пользователь <b>{{UserName}}</b></p></div>
                         </div>
                         <main class="content">
-                            <h2>Статьи</h2>
+                            <h2 class="h2_stat">Статьи</h2>
                             {% for elem in menu%}
                             <div class="post">
                                 <a class="a_post" href="{{elem['id']}}">

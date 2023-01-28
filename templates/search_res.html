@@ -10,7 +10,7 @@
 <div class="post">
     {% autoescape false%}
     <a class="a_post" href="{{elem[1]['id']}}">
-        {{elem[0][0].replace("0b100111", "'").replace("0b100010", '"') }}</a>{% endautoescape %}
+        {{elem[0].replace("0b100111", "'").replace("0b100010", '"') }}</a>{% endautoescape %}
     <p class="content1">
     {% autoescape false%}
     {{elem[1]["content"][:50].replace("0b100111", "'").replace("0b100010", '"')}}...   
