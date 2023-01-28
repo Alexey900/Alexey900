@@ -4,7 +4,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>{{title}}</title>
-        <link href="../static/css/style_index.css" rel="stylesheet" type="text/css">
+        {% if img -%}
+        <link href="../static/css/style_index2.css" rel="stylesheet" type="text/css">
+        {%else -%}
+        <link href="../static/css/style_index.css" rel="stylesheet" type="text/css">    
+        {% endif -%}
     </head>
 
     <body>
@@ -18,6 +22,9 @@
                 </div>
             </header>
             <div class="middle">
+                {% for cat, mes in get_flashed_messages(True) %}
+                <div class="msg{{cat}}">{{mes}}</div>
+                {% endfor %}
                     <div class="container">
                         <div class="sidebar_block">    
                             <div class="sidebar">
@@ -30,16 +37,15 @@
                                 </ul>
                                 </div>
                             </div>
-                                <div class="link_prof"><a href="/profile"><img class="i" src="./static/images/default.png" alt="упс картинки нет"></a></div>
+                                <div class="link_prof"><a href="/profile"><img class="i" src="./static/images/default{{img}}.png" alt="упс картинки нет"></a>
+                                <p clas="userName">Пользователь <b>{{UserName}}</b></p></div>
                         </div>
                         <main class="content">
+                            <h2 class="h2_stat">Статьи</h2>
                             {% for elem in menu%}
                             <div class="post">
                                 <a class="a_post" href="{{elem['id']}}">
                                 {{elem["title"].replace("0b100111", "'").replace("0b100010", '"')}}</a>
-                                <!-- <td class="picture">
-                                    <img width="110px"  class="round" src="../static/images/default.png">
-                                </td> -->
                                 <p class="content1">
                                 {% autoescape false%}
                                 {{elem["content"][:50].replace("0b100111", "'").replace("0b100010", '"')}}...   
