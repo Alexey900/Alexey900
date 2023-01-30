@@ -10,6 +10,18 @@ class UserInfo:
         else:
             return False
 
+    def getAvatar(self):
+        try:
+            if not self.__db.getAll(self.__user[0])[3]:
+                with open("static/images/default.png", 'rb') as file:
+                    img = file.read()
+                return img
+        except Exception as error:
+            print('Найдена ошибка ', error)
+        img = self.__db.getAll(self.__user[0])[3]
+
+        return img
+
     def is_active(self):
         return True
 

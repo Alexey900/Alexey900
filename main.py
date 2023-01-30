@@ -14,6 +14,7 @@ import re
 # CONFIGURATION
 DATABASE = "posts.db"
 SECRET_KEY = "2c4d969558ce80c318380969f35ebb"
+MAX_CONTENT_LENGTH = 1024 * 1024 * 2
 DEBUG = True
 
 app = Flask(__name__)
@@ -33,8 +34,6 @@ def handler():
     '''Главная страница'''
     name = 'не авторизован'  # Имя пользователя(User name)
     img = ''
-    if current_user.get_id() == 'Алим':
-        img = '2'
     if 'userID' in session:  # Если открыта сессия
         name = session['userID'][1]
     elif not current_user.is_active:
@@ -76,8 +75,6 @@ def search():
     results = []
     print(len(menu))
     for elem in menu:
-        print('+')
-        # print(elem['title'])
         if re.search(query, elem['title'], re.I):
             ind = re.search(query, elem['title'], re.I)
             title = elem['title'][:ind.start()]+'<p class="marker">'+\
@@ -87,6 +84,38 @@ def search():
             results.append([title, elem])
             print(title)
     return render_template('search_res.html', menu=results)
+
+
+@app.route('/userAva')
+def userAva():
+    if current_user.is_active:
+        ava = current_user.getAvatar()
+    else:
+        with open("static/images/default.png", 'rb') as file:
+            ava = file.read()
+    img = make_response(ava)
+    img.headers['Content/type'] = 'image'
+    return img
+
+
+@app.route('/upload', methods=["GET", "POST"])
+@login_required
+def uploadFile():
+    if request.method == 'POST':
+        try:
+            file = request.files['image']
+            if file.filename.rsplit('.')[1] == 'png' or \
+               file.filename.rsplit('.')[1] == 'PNG' or \
+               file.filename.rsplit('.')[1] == 'jpg' or \
+               file.filename.rsplit('.')[1] == 'JPEG':
+                img = file.read()
+                db.updateUserImg(img, current_user.get_ID())
+            else:
+                print('Неправильный формат файла')
+        except Exception as error:
+            print('Ошибка ', error)
+    return redirect(url_for('profile'))
+
 
 @app.route("/add_post", methods=["GET", "POST"])
 @login_required
@@ -122,14 +151,14 @@ def editor(post_id):
 @app.route("/<int:post_id>")
 def showPost(post_id):
     respone = db.getPost(post_id)
-    if current_user.is_active and db.getPost(post_id)['authour_id'] == \
+    if current_user.is_active and db.getPost(post_id, show=True)['authour_id'] == \
             current_user.get_ID() or current_user.get_id() == 'Алим':
-        return render_template("post_skeleton_full.html", id=respone["id"],
+        return render_template("post_skeleton.html", id=respone["id"],
                                content=respone["content"], title=respone["title"], 
-                               authour=respone["authour"])
+                               authour=respone["authour"], views=respone['views'])
     if not respone:
         abort(404)
-    return render_template("post_skeleton.html", id=respone["id"],
+    return render_template("post_skeleton2.html", id=respone["id"],
                            content=respone["content"], title=respone["title"], 
                            authour=respone["authour"])
 

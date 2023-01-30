@@ -17,7 +17,7 @@ class FDataBase:
 
     def newUser(self, psw, login):
         try:
-            self.__cur.execute("INSERT INTO users VALUES(NULL, ?, ?)", (login, psw))
+            self.__cur.execute("INSERT INTO users VALUES(NULL, ?, ?, NULL)", (login, psw))
             self.__db.commit()
             return 200
 
@@ -28,8 +28,8 @@ class FDataBase:
     def getAll(self, id):
         try:
             self.__cur.execute(f"SELECT * FROM users WHERE id like '{id}' LIMIT 1")
-            self.id_ = self.__cur.fetchone()
-            return self
+            self.data = self.__cur.fetchone()
+            return self.data
         except Exception as error:
             print('Была обнаружена ошибка ', error)
 
@@ -76,6 +76,17 @@ class FDataBase:
         self.__db.commit()
         return 200
 
+    def updateUserImg(self, avatar, userID):
+        if not avatar:
+            return False
+        try:
+            binary = sqlite3.Binary(avatar)
+            self.__cur.execute("UPDATE users SET avatar = ? WHERE id = ?", (binary, userID))
+            self.__db.commit()
+            return True
+        except Exception as error:
+            print("Была выявлена ошибка ", error)
+
     def addContent(self, content, author_id):
         try:
             text = content["content"].replace("\n", "<br>")
@@ -87,17 +98,21 @@ class FDataBase:
             self.__cur.executescript(f"""
                 INSERT INTO posts VALUES(
                 NULL, "{content['authour']}",
-                "{title}", "{text}", "{author_id}")""")
+                "{title}", "{text}", "{author_id}", 0)""")
             return 200
         except BaseException as error:
             print("catched error", error)
 
-    def getPost(self, post_id):
+    def getPost(self, post_id, show=False):
         try:
             self.__cur.execute(f"SELECT * FROM posts WHERE id = {post_id}")
-            if self.__cur.fetchone():
-                self.__cur.execute(f"SELECT * FROM posts WHERE id = {post_id}")
-                return self.__cur.fetchone()
+            res = self.__cur.fetchone()
+            if res:
+                if show:
+                    v = res['views'] + 1
+                    self.__cur.execute("UPDATE posts SET views = ? WHERE id = ?", (v,post_id))
+                    self.__db.commit()
+                return res
         except:
             print("Error with getPost method")
 

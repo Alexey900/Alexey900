@@ -6,7 +6,7 @@
         <link href="../static/css/editor.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <a href="/" class="return">Главная страница</a>
+        <a href="/{{post_num}}" class="return">Вернуться</a>
         {% for cat, mes in get_flashed_messages(True) %}
         <div class="msg{{cat}}">{{mes}}</div>
         {% endfor %}

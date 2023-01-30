@@ -6,8 +6,12 @@
     </head>
     <body >
         <a href="/">Назад</a><br><br>
-        <img class="i" src="./static/images/default.png" alt="упс картинки нет"><br>
+        <img class="i" src="{{url_for('userAva')}}" alt="упс картинки нет"><br>
 		{{name}}
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="image"><br>
+            <input type="submit" value="Сохранить">
+        </form>
 		<hr>
 		<a href='/logout'>Выйти из акканута</a><br>
         <p>Мои статьи</p>
