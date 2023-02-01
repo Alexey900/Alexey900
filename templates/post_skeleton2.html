@@ -15,7 +15,7 @@
                         <ul>
                             <li class="aaa"><a href="/">Главная</a></li>
                             <li>
-                                <div class="link_prof"><a class="link_img" href="/profile"><img class="i" src="{{url_for('userAva')}}" alt="упс картинки нет"><p clas="userName">Пользователь <b>{{UserName}}</b></p></a>
+                                <div class="link_prof"><a class="link_img" href="/profile"><img class="i" src="{{url_for('userAva', showIm=False)}}" alt="упс картинки нет"><p clas="userName">Пользователь <b>{{UserName}}</b></p></a>
                                 </div>
                             </li>
                         </ul>
@@ -25,7 +25,7 @@
                 <div class="content">
                     <header class="header">
                         <div class="author_block">
-                            <span title="Автор статьи" >{{authour}}</span><br>
+                           <img class="i2" src="{{url_for('userAva',  showIm=shI)}}" alt="упс картинки нет"> <span title="Автор статьи" > {{authour}}</span><br>
                         </div>
                         <div class="title_block">
                             {{title.replace("0b100111", "'").replace("0b100010", '"')}}
@@ -40,6 +40,7 @@
                     </div>
                     Просмотры
                     <div class="con"> 
+                    <p class="date">Дата публикации {{dataP}}</p>
                     <p class="views">{{views}}</p>
                     <img class='icon' src="static\images\icon\глаз.png">
                     </div>

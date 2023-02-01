@@ -1,5 +1,6 @@
 from requests import delete
 import sqlite3
+import datetime
 
 
 class FDataBase:
@@ -98,7 +99,8 @@ class FDataBase:
             self.__cur.executescript(f"""
                 INSERT INTO posts VALUES(
                 NULL, "{content['authour']}",
-                "{title}", "{text}", "{author_id}", 0)""")
+                "{title}", "{text}", "{author_id}", 0,
+                "{datetime.datetime.now().strftime('%d %m %Y')}")""")
             return 200
         except BaseException as error:
             print("catched error", error)

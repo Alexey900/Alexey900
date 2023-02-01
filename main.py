@@ -82,16 +82,19 @@ def search():
                          elem['title'][ind.end():]
 
             results.append([title, elem])
-            print(title)
     return render_template('search_res.html', menu=results)
 
 
-@app.route('/userAva')
-def userAva():
+@app.route('/userAva<int:showIm>')
+def userAva(showIm=False):
     if current_user.is_active:
-        ava = current_user.getAvatar()
+        ava = current_user.getAvatar(app.root_path)
+    elif showIm:
+        print('+')
+        ava = db.getAll(showIm)['avatar']
+        print(ava)
     else:
-        with open("static/images/default.png", 'rb') as file:
+        with open(app.root_path + "\\static\\images\\default.png", 'rb') as file:
             ava = file.read()
     img = make_response(ava)
     img.headers['Content/type'] = 'image'
@@ -148,19 +151,22 @@ def editor(post_id):
         return render_template("edit.html", content=menu[-1]["content"], post_num=post_id)
     abort(404)
 
+
 @app.route("/<int:post_id>")
 def showPost(post_id):
-    respone = db.getPost(post_id)
-    if current_user.is_active and db.getPost(post_id, show=True)['authour_id'] == \
+    respone = db.getPost(post_id, True)
+    if current_user.is_active and db.getPost(post_id)['authour_id'] == \
             current_user.get_ID() or current_user.get_id() == 'Алим':
         return render_template("post_skeleton.html", id=respone["id"],
                                content=respone["content"], title=respone["title"], 
-                               authour=respone["authour"], views=respone['views'])
+                               authour=respone["authour"], views=respone['views'],
+                               dataP=respone["dataP"], shI=respone["authour_id"])
     if not respone:
         abort(404)
     return render_template("post_skeleton2.html", id=respone["id"],
                            content=respone["content"], title=respone["title"], 
-                           authour=respone["authour"])
+                           authour=respone["authour"], views=respone['views'],
+                           dataP=respone["dataP"], shI=respone["authour_id"])
 
 
 @app.route("/delete_post<int:post_id>")

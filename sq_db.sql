@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS posts (
     title TEXT NOT NULL,
     content text NOT NULL,
     authour_id text NOT NULL,
-    views INTEGER DEFAULT 0
+    views INTEGER DEFAULT 0,
+    dataP text NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS users (
