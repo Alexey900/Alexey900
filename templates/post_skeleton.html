@@ -34,10 +34,10 @@
                         <div class="author_block">
                             <img class="i2" src="{{ url_for('userAva', showIm=shI) }}" alt="упс картинки нет"><span title="Автор статьи" > {{authour}}</span><br>
                         </div>
-                        <div class="title_block">
-                            {{title.replace("0b100111", "'").replace("0b100010", '"')}}
-                        </div>
                     </header>
+                    <div class="title_block">
+                        {{title.replace("0b100111", "'").replace("0b100010", '"')}}
+                    </div>
                     <div class="aticle_content_block">
                          {% autoescape False %}
                         <p class="article_content">
@@ -45,11 +45,11 @@
                         </p>
                         {% endautoescape %}
                     </div>
-                    Просмотры
+                    <p class='inf'>Просмотры</p>
                     <div class="con"> 
-                    <p class="date">Дата публикации {{dataP}}</p>
-                    <p class="views">{{views}}</p>
-                    <img class='icon' src="static\images\icon\глаз.png">
+                        <p class="views">{{views}}</p>
+                        <img class='icon' src="static\images\icon\глаз.png">
+                        <p class="date">Дата публикации {{dataP}}</p>
                     </div>
                 </div>
             </div>

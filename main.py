@@ -10,6 +10,8 @@ from flask_login import LoginManager, login_user, login_required, \
     current_user, logout_user
 from User import UserInfo
 import re
+from PIL import Image
+import io
 
 # CONFIGURATION
 DATABASE = "posts.db"
@@ -71,28 +73,26 @@ def handle_bad_request(e):
 @app.route('/search_post', methods=["POST"])
 def search():
     menu = db.getMenu()
-    query = ' ?' + fr"{request.form['query']}" + ' ?'
+    query = ' +' + fr"{request.form['query']}" + ' +'
     results = []
-    print(len(menu))
     for elem in menu:
-        if re.search(query, elem['title'], re.I):
-            ind = re.search(query, elem['title'], re.I)
-            title = elem['title'][:ind.start()]+'<p class="marker">'+\
-                         elem['title'][ind.start():ind.end()]+'</p>'+\
-                         elem['title'][ind.end():]
+        title = ' ' + elem['title'] + ' '
+        if re.search(query, title, re.I):
+            ind = re.search(query, title, re.I)
+            title2 = title[:ind.start()]+'<p class="marker">'+\
+                        title[ind.start():ind.end()]+'</p>'+\
+                        title[ind.end():]
 
-            results.append([title, elem])
+            results.append([title2, elem])
     return render_template('search_res.html', menu=results)
 
 
 @app.route('/userAva<int:showIm>')
 def userAva(showIm=False):
-    if current_user.is_active:
-        ava = current_user.getAvatar(app.root_path)
-    elif showIm:
-        print('+')
+    if showIm:
         ava = db.getAll(showIm)['avatar']
-        print(ava)
+    elif current_user.is_active:
+        ava = current_user.getAvatar(app.root_path)
     else:
         with open(app.root_path + "\\static\\images\\default.png", 'rb') as file:
             ava = file.read()
@@ -111,8 +111,12 @@ def uploadFile():
                file.filename.rsplit('.')[1] == 'PNG' or \
                file.filename.rsplit('.')[1] == 'jpg' or \
                file.filename.rsplit('.')[1] == 'JPEG':
-                img = file.read()
-                db.updateUserImg(img, current_user.get_ID())
+                img = Image.open(file, mode='r')
+                new_img = img.resize((300, 300))
+                buf = io.BytesIO()
+                new_img.save(buf, format=img.format)
+                byte_im = buf.getvalue()
+                db.updateUserImg(byte_im, current_user.get_ID())
             else:
                 print('Неправильный формат файла')
         except Exception as error:
@@ -135,7 +139,7 @@ def AddPost():
 @login_required
 def editor(post_id):
     if current_user.is_active and db.getPost(post_id)['authour_id'] == \
-     current_user.get_ID() or current_user.get_id() == 'Алим':
+     current_user.get_ID():
         if request.method == 'GET':
             menu = db.getContent(post_id)
             return render_template("edit.html", content=menu[-1]["content"], post_num=post_id)
@@ -156,7 +160,7 @@ def editor(post_id):
 def showPost(post_id):
     respone = db.getPost(post_id, True)
     if current_user.is_active and db.getPost(post_id)['authour_id'] == \
-            current_user.get_ID() or current_user.get_id() == 'Алим':
+            current_user.get_ID():
         return render_template("post_skeleton.html", id=respone["id"],
                                content=respone["content"], title=respone["title"], 
                                authour=respone["authour"], views=respone['views'],
@@ -173,10 +177,10 @@ def showPost(post_id):
 @login_required
 def delete_post(post_id):
     if current_user.is_active and db.getPost(post_id)['authour_id'] == \
-     current_user.get_ID() or current_user.get_id() == 'Алим':
+     current_user.get_ID():
         db.deletePost(post_id)
         return render_template("deletePage.html", title="Удаление поста")
-    abort(401)
+    abort(403)
 
 
 @app.route('/logout')
@@ -191,9 +195,7 @@ def logout():
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
-    if current_user.get_id() == 'Алим':
-        return render_template("Personal Area.html", name=current_user.name, menu=db.getMenu())
-    elif current_user.is_active:
+    if current_user.is_active:
         return render_template("Personal Area.html", name=current_user.name, \
             menu=db.getMenu(current_user.get_ID())[::-1])
         # menu=db.getMenu(current_user.get_ID())[::-1])
@@ -216,7 +218,7 @@ def reg():
                 user = UserInfo(session['userID'][1], db)
                 login_user(user)
                 flash("Вы успешно зарегистрировались", category="success")
-                return redirect(url_for('handler'))
+                return redirect(url_for('profile'))
             else:
                 flash("Ошибка во время регистрации", category="error")
             return render_template("authorization.html")
@@ -226,7 +228,7 @@ def reg():
                 user = UserInfo(session['userID'][1], db)
                 login_user(user)
                 flash("Вы вошли в учетную запись", category="success")
-                return redirect(url_for('handler'))
+                return redirect(url_for('profile'))
             else:
                 flash("Неверный пароль", category="error")
                 return render_template("authorization.html")

@@ -65,9 +65,12 @@ form{
 }
 .title_block {
     padding: 20px 0;
-    font-size: 30px;
+    font-size: 1.5em;
     text-transform: uppercase;
-    font-size: calc(14px + 1vw);
+}
+
+.inf {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .link_ico_profile {
@@ -123,19 +126,23 @@ form{
     
 }
 
-.con {position:relative}
+.con {
+    position:relative;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 
 .icon{
-	width: 120px;
-	height: 70px;
+	width: 78px;
+	height: 50px;
     display: inline;
 }
 
 .views {
-    margin-left: 7%;
-    margin-top: 3%;
+    margin-left: 3.8%;
+    margin-top: 1.8%;
     display: inline;
-    position:absolute
+    position:absolute;
+    font-weight: 00
 }
 
 .sidebar h2{
@@ -178,6 +185,7 @@ form{
 
 .article_content{
     overflow-wrap: break-word;
+    padding: 2px;
 }
 
 .button_block {

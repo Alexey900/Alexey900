@@ -4,7 +4,7 @@
         <link href="../static/css/search_res.css" rel='stylesheet' type="text/css"
     </head>
     <body>
-        <h2>Поисковые результаы</h2>
+        <center><h2>Поисковые результаы</h2></center>
         {% if menu -%}
 {% for elem in menu%}
 <div class="post">
@@ -19,7 +19,7 @@
 {% endfor %}
 {%else -%}
 {% autoescape false%}
-{{'<h2>Ничего не найдено</h2>'}}
+<center>{{'<h2>Ничего не найдено</h2>'}}</center>
 {% endautoescape %}
 {% endif -%}
 </body>
