@@ -5,33 +5,32 @@
         <link href="../static/css/Personal Area.css" rel="stylesheet" type="text/css">
     </head>
     <body >
-        {% for cat, mes in get_flashed_messages(True) %}
-        <div class="msg{{cat}}">{{mes}}</div>
-        {% endfor %}
-        <div class='info'>
-        <a href="/" class="return">Назад</a><br><br>
-        <img class="i" src="{{url_for('userAva', showIm=False)}}" alt="упс картинки нет"><br>
-		<p class="name">{{name}}</p>
-        <form action="/upload" method="POST" enctype="multipart/form-data">
-            <input type="file" name="image" accept=".png, .jpg, .jpeg"><br>
-            <input type="submit" class='but' value="Сохранить">
-        </form>
-		<hr>
-		<a href='/logout' class="return" onclick="alert('Нажмите Ок для того чтобы выйти');">Выйти из акканута</a>
-        </div>
-        <div class="content">
-        <p class="in">Мои статьи</p>
-        {% for elem in menu%}
-            <div class="post">
-                <a class="a_post" href="{{elem['id']}}">
-                {{elem["title"].replace("0b100111", "'").replace("0b100010", '"')}}</a>
-                <p class="content1">
-                {% autoescape false%}
-                {{elem["content"][:50].replace("0b100111", "'").replace("0b100010", '"')}}...   
-                {% endautoescape %}
-                </p>
-            </div>
-        {% endfor %}
-    </div>
+                <main class="main_content">
+                    <h1>Личный кабинет</h1>
+                    <div class="content">
+                        <div class="image_block">
+                            <a href="/" class="return">Назад</a><br><br>
+                            <img class="i" src="{{url_for('userAva', showIm=False)}}" alt="упс картинки нет"><br>
+                            <p clas="userName">Пользователь <b>{{name}}</b></p>
+                            <ul>
+                            <li><a href="/">Назад</a></li>
+                            <li><a href='/logout'>Выйти из акканута</a></li>
+                            </ul>
+                        </div>
+                        <div class="block_content">
+                            <h2 class="h2_stat">Мои статьи</h2>
+                        {% for elem in menu%}
+                        <div class="post">
+                            <a class="a_post" href="{{elem['id']}}">{{elem["title"].replace("0b100111", "'").replace("0b100010", '"')}}</a>
+                            <p class="content1">
+                            {% autoescape false%}
+                            {{elem["content"][:50].replace("0b100111", "'").replace("0b100010", '"')}}...   
+                            {% endautoescape %}
+                            </p>
+                        </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </main>
     </body>
 </html>
