@@ -36,7 +36,9 @@
                         </div>
                     </header>
                     <div class="title_block">
+                        {% autoescape False%}
                         {{title.replace("0b100111", "'").replace("0b100010", '"')}}
+                        {% endautoescape %}
                     </div>
                     <div class="aticle_content_block">
                          {% autoescape False %}

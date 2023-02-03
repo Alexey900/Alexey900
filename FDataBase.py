@@ -92,7 +92,7 @@ class FDataBase:
         try:
             text = content["content"].replace("\n", "<br>")
             text = text.replace("'", "0b100111").replace('"', "0b100010")
-            title = content["title"].replace("\n", "<br>")
+            title = content["title"].replace("\n", " ")
             title = title.replace("'", "0b100111").replace('"', "0b100010")
             if not all([content['authour'], content["title"], text]):
                 return 400

@@ -1,5 +1,5 @@
 Skip to content
-Search or jump to…
+Search or jump toпїЅ
 Pull requests
 Issues
 Codespaces
@@ -27,7 +27,7 @@ Latest commit 19b52d3 18 hours ago
  1 contributor
 121 lines (108 sloc)  2.31 KB
 
-/*Обнуление*/
+/*пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ*/
 *{
 	padding: 0;
     margin: 0;
@@ -78,6 +78,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
     background: rgb(246, 63, 63);
     font-size: 24px;
     text-align: center;
+    margin-bottom: 1%;
 }
 
 body{
@@ -152,7 +153,7 @@ body{
     border: 1px solid #000;
 }
 Footer
-© 2023 GitHub, Inc.
+пїЅ 2023 GitHub, Inc.
 Footer navigation
 Terms
 Privacy
@@ -165,4 +166,4 @@ API
 Training
 Blog
 About
-Alexey900/style_autorization.css at main · Ponchip/Alexey900
+Alexey900/style_autorization.css at main пїЅ Ponchip/Alexey900

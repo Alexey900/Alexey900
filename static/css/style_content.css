@@ -67,6 +67,7 @@ form{
     padding: 20px 0;
     font-size: 1.5em;
     text-transform: uppercase;
+    word-wrap: break-word;
 }
 
 .inf {

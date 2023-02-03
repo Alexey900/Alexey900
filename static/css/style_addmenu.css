@@ -56,7 +56,7 @@ h2{
 }
 
 .main_content{
-    width: 770px; 
+    width: 75%; 
     margin: 20% auto;
 	min-height: 500px;
 	border: 5px solid #000;
@@ -177,7 +177,7 @@ textarea{
 
 .author_field{
     border: 1px solid #000;
-    width: 500px;
+    width: 100%;
     height: 50px;
     font-size: 26px;
     background: #ffffff;
@@ -185,7 +185,7 @@ textarea{
 }
 
 .title_fild{
-    width: 500px;
+    width: 100%;
     height: 50px;
     background: #ffffff;
     color: #9E9C9C;
@@ -194,7 +194,7 @@ textarea{
 }
 
 .content_fild{
-    width: 500px;
+    width: 100%;
     min-height: 180px;
     height: 100%;
     background: #ffffff;

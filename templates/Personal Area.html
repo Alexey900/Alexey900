@@ -12,6 +12,10 @@
                             <a href="/" class="return">Назад</a><br><br>
                             <img class="i" src="{{url_for('userAva', showIm=False)}}" alt="упс картинки нет"><br>
                             <p clas="userName">Пользователь <b>{{name}}</b></p>
+                            <form action="/upload" method="POST" enctype="multipart/form-data">
+                                <input type="file" name="image" accept=".png, .jpg, .jpeg"><br>
+                                <input type="submit" class='but' value="Сохранить">
+                            </form>
                             <ul>
                             <li><a href="/">Назад</a></li>
                             <li><a href='/logout'>Выйти из акканута</a></li>
