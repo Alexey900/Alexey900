@@ -13,8 +13,14 @@
                             <img class="i" src="{{url_for('userAva', showIm=False)}}" alt="упс картинки нет"><br>
                             <p clas="userName">Пользователь <b>{{name}}</b></p>
                             <form action="/upload" method="POST" enctype="multipart/form-data">
-                                <input type="file" name="image" accept=".png, .jpg, .jpeg"><br>
-                                <input type="submit" class='but' value="Сохранить">
+                                <input type="file" id="image_uploads" class="input_file" name="image" accept=".jpg, .jpeg, .png" multiple>
+                                <label for="image_uploads" class="input__file-button">
+                                    <span class="input__file-button-text">Выберите изображение (PNG, JPG)</span>
+                                </label>
+                                <input type="submit" id='save_img' class='but' value="Сохранить">
+                                <label for="save_img" class="save-button">
+                                    <span class="input__file-button-text">Загрузить</span>
+                                </label>
                             </form>
                             <ul>
                             <li><a href="/">Назад</a></li>

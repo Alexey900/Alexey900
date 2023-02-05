@@ -91,6 +91,9 @@ def search():
 def userAva(showIm=False):
     if showIm:
         ava = db.getAll(showIm)['avatar']
+        if not ava:
+            with open(app.root_path + "\\static\\images\\default.png", 'rb') as file:
+                ava = file.read()
     elif current_user.is_active:
         ava = current_user.getAvatar(app.root_path)
     else:
@@ -179,7 +182,8 @@ def delete_post(post_id):
     if current_user.is_active and db.getPost(post_id)['authour_id'] == \
      current_user.get_ID():
         db.deletePost(post_id)
-        return render_template("deletePage.html", title="Удаление поста")
+        flash("Статья успешно удалена", 'success')
+        return redirect('/')
     abort(403)
 
 
@@ -206,7 +210,7 @@ def profile():
 def reg():
     session.permanent = True
     if request.method != 'GET':
-        if len(request.form['login']) < 5 and len(request.form['password']) < 8:
+        if len(request.form['login']) < 4 or len(request.form['password']) < 8:
             flash("Неверно введены данные", category="error")
             return render_template("authorization.html")
 

@@ -120,9 +120,6 @@ body{
 	padding: 10px;
     border-radius: 1%;
 }
-.container{
-	background: #e7dabb; /* фон содержимого*/
-}
 
 .content {
 	background: rgb(255, 255, 255);
